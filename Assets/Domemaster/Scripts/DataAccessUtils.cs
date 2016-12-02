@@ -74,12 +74,12 @@ public class DataAccessUtils : MonoBehaviour {
 
 	private void loadInstructionData(JsonData data){
 		Repo.instruction = getData (data[0]["instruction"]);
-		Repo.instructionImages = etCommaSeparatedStringAsList(getData (data [0] ["image"]),",");
+		Repo.instructionImages = getCommaSeparatedStringAsList(getData (data [0] ["image"]),",");
 	}
 
 	private void loadThemesData(JsonData data){
 		Repo.themeColor = getData (data [0] ["color"]);
-		Repo.themeImages = getImageList (getData (data [0] ["images"]));
+		Repo.themeImages = getCommaSeparatedStringAsList(getData (data [0] ["image"]),",");
 		Debug.Log ("Test: "+Repo.themeColor);
 		Debug.Log (Repo.themeImages.First ());
 	}
