@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -47,8 +47,8 @@ public class DataAccessUtils : MonoBehaviour {
 			Animal animal = new Animal ();
 			animal.id = (int)data[i]["id"];
 			animal.color = getData(data[i]["color"]["name"]);
-			animal.description = getData(data[i]["description"]);
-			animal.images = getImageList(getData(data [i] ["image"]));
+			animal.description = getCommaSeparatedStringAsList(getData(data[i]["description"]),"\n");
+			animal.images = getCommaSeparatedStringAsList(getData(data [i] ["image"]),",");
 			animal.imageGeo = getData(data[i]["imageGeo"]);
 			animal.name = getData(data[i]["name"]);
 			animal.nationalStatus = getData(data[i]["nationalStatus"]["name"]);
@@ -89,10 +89,10 @@ public class DataAccessUtils : MonoBehaviour {
 		return null != data ? (string)data : "";
 	}
 
-	public List<string> getImageList(string images){
-		if (images.Contains (',')) {
-			return images.Split(',').ToList();
+	public List<string> getCommaSeparatedStringAsList(string aString, string regex){
+		if (aString.Contains(regex)) {
+			return aString.Split(regex).ToList();
 		}
-		return new string[] { images }.ToList();
+		return new string[] { aString }.ToList();
 	}
 }
