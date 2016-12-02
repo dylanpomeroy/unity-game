@@ -74,7 +74,7 @@ public class DataAccessUtils : MonoBehaviour {
 
 	private void loadInstructionData(JsonData data){
 		Repo.instruction = getData (data[0]["instruction"]);
-		Repo.instructionImages = getImageList (getData (data [0] ["image"]));
+		Repo.instructionImages = etCommaSeparatedStringAsList(getData (data [0] ["image"]),",");
 	}
 
 	private void loadThemesData(JsonData data){
