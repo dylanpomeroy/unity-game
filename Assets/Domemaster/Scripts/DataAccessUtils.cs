@@ -47,7 +47,7 @@ public class DataAccessUtils : MonoBehaviour {
 			Animal animal = new Animal ();
 			animal.id = (int)data[i]["id"];
 			animal.color = getData(data[i]["color"]["name"]);
-			animal.description = getCommaSeparatedStringAsList(getData(data[i]["description"]),"\n");
+			animal.description = getCommaSeparatedStringAsList(getData(data[i]["description"]),'\n');
 			animal.images = getCommaSeparatedStringAsList(getData(data [i] ["image"]),",");
 			animal.imageGeo = getData(data[i]["imageGeo"]);
 			animal.name = getData(data[i]["name"]);
@@ -74,12 +74,12 @@ public class DataAccessUtils : MonoBehaviour {
 
 	private void loadInstructionData(JsonData data){
 		Repo.instruction = getData (data[0]["instruction"]);
-		Repo.instructionImages = getCommaSeparatedStringAsList(getData (data [0] ["image"]),",");
+		Repo.instructionImages = getCommaSeparatedStringAsList(getData (data [0] ["image"]),',');
 	}
 
 	private void loadThemesData(JsonData data){
 		Repo.themeColor = getData (data [0] ["color"]);
-		Repo.themeImages = getCommaSeparatedStringAsList(getData (data [0] ["image"]),",");
+		Repo.themeImages = getCommaSeparatedStringAsList(getData (data [0] ["image"]),',');
 		Debug.Log ("Test: "+Repo.themeColor);
 		Debug.Log (Repo.themeImages.First ());
 	}
@@ -89,7 +89,7 @@ public class DataAccessUtils : MonoBehaviour {
 		return null != data ? (string)data : "";
 	}
 
-	public List<string> getCommaSeparatedStringAsList(string aString, string regex){
+	public List<string> getCommaSeparatedStringAsList(string aString, char regex){
 		if (aString.Contains(regex)) {
 			return aString.Split(regex).ToList();
 		}
