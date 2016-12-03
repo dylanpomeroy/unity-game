@@ -47,8 +47,8 @@ public class DataAccessUtils : MonoBehaviour {
 			Animal animal = new Animal ();
 			animal.id = (int)data[i]["id"];
 			animal.color = getData(data[i]["color"]["name"]);
-			animal.description = getCommaSeparatedStringAsList(getData(data[i]["description"]),'\n');
-			animal.images = getCommaSeparatedStringAsList(getData(data [i] ["image"]),",");
+			animal.description = getWrappedString(getData(data[i]["description"]), 25);
+			animal.images = getRegExSeparatedStringAsList(getData(data [i] ["image"]),',');
 			animal.imageGeo = getData(data[i]["imageGeo"]);
 			animal.name = getData(data[i]["name"]);
 			animal.nationalStatus = getData(data[i]["nationalStatus"]["name"]);
@@ -56,32 +56,34 @@ public class DataAccessUtils : MonoBehaviour {
 			animal.scientificName = getData(data[i]["scientificName"]);
 			animal.species = getData(data[i]["specie"]["name"]);
 
-//			Debug.Log (animal.id + ","
-//				+ animal.color + ","
-//				+ animal.description + ","
-//				+ string.Join (",", animal.images.ToArray()) + ","
-//				+ animal.imageGeo + ","
-//				+ animal.name + ","
-//				+ animal.nationalStatus + ","
-//				+ animal.provincialStatus + ","
-//				+ animal.scientificName + ","
-//				+ animal.species);
+			Debug.Log (animal.id + ","
+				+ animal.color + ","
+				+ animal.description + ","
+				//+ string.Join (",", animal.images.ToArray()) + ","
+				+ animal.imageGeo + ","
+				+ animal.name + ","
+				+ animal.nationalStatus + ","
+				+ animal.provincialStatus + ","
+				+ animal.scientificName + ","
+				+ animal.species);
 			
 			Repo.animalCache.Add(animal.id, animal);
 		}
-
 	}
 
 	private void loadInstructionData(JsonData data){
 		Repo.instruction = getData (data[0]["instruction"]);
-		Repo.instructionImages = getCommaSeparatedStringAsList(getData (data [0] ["image"]),',');
+		Repo.instructionImages = getRegExSeparatedStringAsList(getData (data [0] ["image"]),',');
 	}
 
 	private void loadThemesData(JsonData data){
 		Repo.themeColor = getData (data [0] ["color"]);
-		Repo.themeImages = getCommaSeparatedStringAsList(getData (data [0] ["image"]),',');
+		Repo.themeImages = getRegExSeparatedStringAsList(getData (data [0] ["images"]),',');
 		Debug.Log ("Test: "+Repo.themeColor);
 		Debug.Log (Repo.themeImages.First ());
+
+		// all done loading, start your game engines!
+		GameEngine.Start ();
 	}
 
 
@@ -89,10 +91,35 @@ public class DataAccessUtils : MonoBehaviour {
 		return null != data ? (string)data : "";
 	}
 
-	public List<string> getCommaSeparatedStringAsList(string aString, char regex){
-		if (aString.Contains(regex)) {
-			return aString.Split(regex).ToList();
+	public List<string> getRegExSeparatedStringAsList(string aString, char regex){
+		if (aString.Contains (',')) {
+			return aString.Split(',').ToList();
 		}
 		return new string[] { aString }.ToList();
+	}
+
+	public string getWrappedString(string aString, int maxLineLength){
+			
+		var finalStringList = new List<string> ();
+		var stringArr = aString.Split (' ').Select(line => line += " ").ToArray();
+		var stringLine = stringArr.First();
+		int index = 1;
+
+		while (index < stringArr.Length) {
+			while (index < stringArr.Length
+				&& stringLine.Length + stringArr [index].Length < maxLineLength
+				&& !stringArr[index].Contains("\n")) {
+				stringLine += stringArr [index];
+				index++;
+			}
+			//Debug.Log ("StringLine: " + stringLine);
+			finalStringList.Add (
+				System.Text.RegularExpressions.Regex.Replace(
+					stringLine,
+					@"[\\n]",
+					""));
+			stringLine = string.Empty;
+		}
+		return string.Join ("\n", finalStringList.ToArray ());
 	}
 }

@@ -49,6 +49,7 @@
      <Compile Include="Assets\Domemaster\Scripts\DataAccessUtils.cs" />
      <Compile Include="Assets\Domemaster\Scripts\DomeCamera.cs" />
      <Compile Include="Assets\Domemaster\Scripts\Domemaster.cs" />
+     <Compile Include="Assets\Domemaster\Scripts\GameEngine.cs" />
      <Compile Include="Assets\Domemaster\Scripts\Image.cs" />
      <Compile Include="Assets\Domemaster\Scripts\ImageDataAccess.cs" />
      <Compile Include="Assets\Domemaster\Scripts\Repo.cs" />
@@ -57,6 +58,7 @@
      <Compile Include="Assets\Domemaster\Scripts\RotateImage1.cs" />
      <Compile Include="Assets\Domemaster\Scripts\RotateImage2.cs" />
      <Compile Include="Assets\Domemaster\Scripts\RotateImage3.cs" />
+     <Compile Include="Assets\Domemaster\Scripts\imageHandler.cs" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
