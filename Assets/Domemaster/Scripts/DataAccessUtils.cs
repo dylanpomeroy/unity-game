@@ -47,7 +47,7 @@ public class DataAccessUtils : MonoBehaviour {
 			Animal animal = new Animal ();
 			animal.id = (int)data[i]["id"];
 			animal.color = getData(data[i]["color"]["name"]);
-			animal.description = getWrappedString(getData(data[i]["description"]), 25);
+			animal.description = getWrappedString(getData(data[i]["description"]), 50);
 			animal.images = getRegExSeparatedStringAsList(getData(data [i] ["image"]),',');
 			animal.imageGeo = getData(data[i]["imageGeo"]);
 			animal.name = getData(data[i]["name"]);
@@ -83,7 +83,8 @@ public class DataAccessUtils : MonoBehaviour {
 		Debug.Log (Repo.themeImages.First ());
 
 		// all done loading, start your game engines!
-		GameEngine.Start ();
+		GameEngine gameEngine = new GameEngine();
+		gameEngine.Start ();
 	}
 
 

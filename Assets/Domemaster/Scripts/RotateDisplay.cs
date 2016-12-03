@@ -10,6 +10,6 @@ public class RotateDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.RotateAround (Vector3.zero, Vector3.up, 0 * Time.deltaTime);
+		transform.RotateAround (Vector3.zero, Vector3.up, Time.deltaTime);
 	}
 }

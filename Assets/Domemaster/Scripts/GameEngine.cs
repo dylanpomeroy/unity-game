@@ -2,17 +2,22 @@
 using System.Collections;
 using System.Linq;
 
-public static class GameEngine {
-	public static void Start(){
+public class GameEngine{
+	private imageHandler handler;
+
+	public void Start(){
 		Debug.Log ("Game Engine started");
-
-
-		displayAnimal (2);
+		displayAnimal (3);
 
 		Debug.Log ("Game Engine ended");
 	}
 
-	private static void displayAnimal(int animalId){
+	public void test(){
+		Debug.Log ("Test");
+	}
+	public void displayAnimal(int animalId){
+
+		handler = (imageHandler)GameObject.FindObjectOfType<imageHandler> ();
 		if (!Repo.animalCache.ContainsKey (animalId)) {
 			Debug.Log ("An animal ID was requested that does not exist in the animalCache.");
 		} else {
@@ -27,18 +32,11 @@ public static class GameEngine {
 		
 			// set the images
 			Debug.Log("Image: " + animal.images.First());
-			//new imageHandler(animal.images.First());
-			//GameObject.
-			new imageHandler().Update("animalPicture3.jpg");
-
-			// we have to add the component imageHandler
+			handler.loadImage (animal.images.First());
 		}
-
-
-
 	}
 
-	private static void setTextComponent(string textObjectId, string text){
+	private void setTextComponent(string textObjectId, string text){
 		var objectComponent = GameObject.Find(textObjectId);
 		var objectTextMesh = (TextMesh)objectComponent.transform.GetComponent (typeof(TextMesh));
 		objectTextMesh.text = text;
