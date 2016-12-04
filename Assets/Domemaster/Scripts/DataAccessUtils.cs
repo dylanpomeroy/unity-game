@@ -83,8 +83,8 @@ public class DataAccessUtils : MonoBehaviour {
 		Debug.Log (Repo.themeImages.First ());
 
 		// all done loading, start your game engines!
-		GameEngine gameEngine = new GameEngine();
-		gameEngine.Start ();
+		//GameEngine gameEngine = new GameEngine();
+		//gameEngine.Start ();
 	}
 
 
